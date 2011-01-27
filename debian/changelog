@@ -1,0 +1,5 @@
+dhex (0.65-1) unstable; urgency=low
+
+  * Initial release. (Closes: #613929)
+
+ -- Gürkan Sengün <gurkan@phys.ethz.ch>  Thu, 27 Jan 2011 08:34:24 +0100

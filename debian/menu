@@ -1,0 +1,2 @@
+?package(dhex):needs="text" section="Applications/Editors"\
+  title="dhex" command="/usr/bin/dhex"
