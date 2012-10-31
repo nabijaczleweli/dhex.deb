@@ -1,3 +1,20 @@
+dhex (0.68-1) experimental; urgency=low
+
+  * New upstream release
+  * New maintainer (Closes: #691818)
+    - Update debian/{control,copyright} accordingly.
+  * Add debian/patches/dhex.1-man-typo to fix errors caught by linitian
+  * Import packaging git repo to collab-maint
+    - Add VCS-{Git,Browser} URLs 
+  * Bump S-V to 3.9.4
+    - No changes needed
+  * Fix Copyright Format 1.0 syntax error in debian/copyright
+    - s/GNU GPL 2\+/GPL-2+/
+  * Update package long description to aid searching
+  * Thanks to Gregor Herrmann for reviewing and sponsoring this upload
+
+ -- Jonathan McCrohan <jmccrohan@gmail.com>  Wed, 31 Oct 2012 22:38:35 +0000
+
 dhex (0.67-1) unstable; urgency=low
 
   [ Gürkan Sengün ]

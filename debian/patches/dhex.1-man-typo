@@ -1,0 +1,25 @@
+Description: Fix typos in dhex.1 man page (caught by linitan)
+Author: Jonathan McCrohan <jmccrohan@gmail.com>
+
+diff --git a/dhex.1 b/dhex.1
+index 5154f44..fa5b94f 100644
+--- a/dhex.1
++++ b/dhex.1
+@@ -99,7 +99,7 @@
+ .Ek
+ .Sh DESCRIPTION
+ .Nm
+-is a hex editor. It can be used to alter individual bytes in large files. Since it is a text-mode programm based on ncurses, it can run in numerous scenarios.
++is a hex editor. It can be used to alter individual bytes in large files. Since it is a text-mode program based on ncurses, it can run in numerous scenarios.
+ .
+ Its special feature is the diff mode: With it, the user has a visual tool for file comparison. This mode is invoked when 
+ .Nm
+@@ -219,7 +219,7 @@ Input fields can be closed by pressing ESC, ENTER, or any cursor key. Only press
+ .Ss The keyboard setup
+ When running 
+ .Nm
+-for the first time, without any configfile present, or with the parameter -k, the first screen shown is that of the keyboard setup. In this screen, the program asks the user to press certain keys. Which are (in order) ESCAPE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, BACKSPACE, DEL, ENTER, TAB, UP, DOWN, RIGHT, LEFT, PG UP, PG DOWN, HOME, END. It also tells the user what it intends to do with those keys later. So the user can decide on any alternative he chooses. 
++for the first time, without any configfile present, or with the parameter \-k, the first screen shown is that of the keyboard setup. In this screen, the program asks the user to press certain keys. Which are (in order) ESCAPE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, BACKSPACE, DEL, ENTER, TAB, UP, DOWN, RIGHT, LEFT, PG UP, PG DOWN, HOME, END. It also tells the user what it intends to do with those keys later. So the user can decide on any alternative he chooses. 
+ If he does not want to bind a specific function to a certain key, he can simply press ESCAPE and skip to the next question.
+ .Pp
+ After pressing all the keys, the user can chose whether or not to write those keys into the config file.
