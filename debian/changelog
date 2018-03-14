@@ -1,3 +1,13 @@
+dhex (0.68-3) unstable; urgency=medium
+
+  * Add myself to Uploaders.
+  * Drop stripping, thanks Helmut Grohne. (Closes: #865731)
+  * Fix busy waiting for input. (Closes: #714014)
+  * Bump debhelper version to 11.
+  * Bump standards version to 4.1.3.
+
+ -- Gürkan Myczko <gurkan@phys.ethz.ch>  Wed, 14 Mar 2018 08:27:56 +0100
+
 dhex (0.68-2) unstable; urgency=low
 
   * Upload to unstable because Wheezy is now stable. \o/

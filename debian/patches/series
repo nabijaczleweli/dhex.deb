@@ -1,3 +1,5 @@
 fix-install-target
 hardening
 dhex.1-man-typo
+nostrip
+cpuload
