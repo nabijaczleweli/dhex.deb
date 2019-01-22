@@ -219,7 +219,6 @@ tInt8 MenuInteract(tOutput* output,tMenu* Menu,tInt16 offsy,tInt16 offsx)
 {
 	tInt16	ch;
 	int	i;
-	tInt8	retval;
 
 	ch=0;
 	printMenu(output,Menu,offsy,offsx);
@@ -233,7 +232,6 @@ tInt8 MenuInteract(tOutput* output,tMenu* Menu,tInt16 offsy,tInt16 offsx)
 			case	KEYUP:		MenuMoveUp(Menu);						break;
 			case	KEYDOWN:	MenuMoveDown(Menu);						break;
 			case	KEYTAB:		Menu->menuitemactive=(Menu->menuitemactive+1)%Menu->menuitemnum;break;
-			case	KEYENTER:	retval=Menu->menuitemactive;					break;
 			default:
 				if (ch>=' ' && ch<127)
 				{

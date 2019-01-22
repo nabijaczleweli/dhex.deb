@@ -4,16 +4,14 @@ Priority: optional
 Maintainer: Jonathan McCrohan <jmccrohan@gmail.com>
 Uploaders: Gürkan Myczko <gurkan@phys.ethz.ch>
 Build-Depends: debhelper (>= 11~), libncurses5-dev
-Standards-Version: 4.1.3
-Vcs-Git: git://git.debian.org/git/collab-maint/dhex.git
-Vcs-Browser: http://git.debian.org/?p=collab-maint/dhex.git
+Standards-Version: 4.2.1
 Homepage: http://www.dettus.net/dhex/
 
 Package: dhex
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: ncurses based hex editor with diff mode
- dhex is more than just another hex editor: It includes a diff mode, which
+ This is more than just another hex editor: It includes a diff mode, which
  can be used to easily and conveniently compare two binary files. Since it is
  based on ncurses and is themeable, it can run on any number of systems and
  scenarios. With its utilization of search logs, it is possible to track

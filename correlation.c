@@ -178,7 +178,6 @@ void find_mindiff(tOutput* output,tCorrelation* correlation,tBuffer* buf1,tBuffe
 	WINDOW* smallwin=NULL;
 	tBuffer* smallbuf;
 	tBuffer* bigbuf;
-	tInt64	match;
 	tBool	found=0;
 
 	
@@ -207,7 +206,6 @@ void find_mindiff(tOutput* output,tCorrelation* correlation,tBuffer* buf1,tBuffe
 	for (pos1=-(tInt64)smallbuf->bufsize;pos1<(tInt64)bigbuf->bufsize && correlation->mindiff;pos1++)
 	{
 		diff=0;
-		match=0;
 		if (smallwin) mvwprintw(smallwin,1,3,"%16lli",((tInt64)bigbuf->bufsize-pos1));
 		else fprintf(stderr,"%16lli\r",((tInt64)buf1->bufsize-pos1));
 

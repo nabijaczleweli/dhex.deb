@@ -5,14 +5,15 @@ Description: <short summary of the patch>
  information below has been extracted from the changelog. Adjust it or drop
  it.
  .
- dhex (0.68-3) unstable; urgency=medium
+ dhex (0.69-1) unstable; urgency=medium
  .
-   * Add myself to Uploaders.
-   * Drop stripping, thanks Helmut Grohne. (Closes: #865731)
-   * Apply upstream patch. (Closes: #714014)
+   * New upstream version.
+   * debian/control: drop Vcs fields.
+   * Bump standards version to 4.2.1.
+   * debian/copyright: updated years.
+   * debian/install and manpages: added.
+   * debian/rules: disabled install target.
 Author: Gürkan Myczko <gurkan@phys.ethz.ch>
-Bug-Debian: https://bugs.debian.org/714014
-Bug-Debian: https://bugs.debian.org/865731
 
 ---
 The information above should follow the Patch Tagging Guidelines, please
@@ -25,16 +26,25 @@ Bug-Debian: https://bugs.debian.org/<bugnumber>
 Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
 Forwarded: <no|not-needed|url proving that it has been forwarded>
 Reviewed-By: <name and email of someone who approved the patch>
-Last-Update: 2018-03-14
+Last-Update: 2019-01-22
 
---- dhex-0.68.orig/main.c
-+++ dhex-0.68/main.c
-@@ -525,7 +525,7 @@ int main(int argc,char** argv)
- 		output->win=initscr();
- 		pairsinit(output);
- 		noecho();
--		nodelay(output->win,1);
-+		/* nodelay(output->win,1); */
- 		if (keyboardsetupreq) keyboardsetup(output,configfile);
- 		readbuf(buf1,0);
- 		firstpos1=cursorpos1;
+--- dhex-0.69.orig/Makefile
++++ dhex-0.69/Makefile
+@@ -1,7 +1,7 @@
+ CC=		gcc
+ LDFLAGS=	-L/usr/lib	-L/usr/local/lib  	-L/usr/lib/ncurses	-L/usr/local/lib/ncurses
+ CPPFLAGS=	-I/usr/include	-I/usr/local/include	-I/usr/include/ncurses	-I/usr/local/include/ncurses
+-CFLAGS=		-O3 -Wall #-std=c99 
++CFLAGS=		-g -Wall #-std=c99 
+ #CFLAGS+= -ffunction-sections -fdata-sections
+ #LDFLAGS+= --gc-sections 
+ LIBS=		-lncurses
+@@ -24,7 +24,7 @@ OFILES=buffers.o \
+ all:	dhex
+ 
+ dhex:	$(OFILES)
+-	$(CC) $(LDFLAGS) -o $@ $(OFILES) $(LIBS)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OFILES) $(LIBS)
+ 
+ install:all
+ 	strip dhex

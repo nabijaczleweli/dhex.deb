@@ -69,7 +69,7 @@ tInt16 getkey(tKeyTab* pKeyTab,tBool inputfield)		// =1 this is an inputfield. w
 				lastch=ch;
 				done=1;	// a key was pressed
 			} else {
-				usleep(1);
+				usleep(1000);
 				donecnt=donecnt-partial;
 				done=!donecnt;
 			}

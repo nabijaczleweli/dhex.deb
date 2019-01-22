@@ -32,14 +32,15 @@ int	parsemarkerfile(tMarkers* markers,char* filename)
 			//	2=reading in number
 			//	3=end of line
 	tBool	hadnumber=0;	
+	int n;
 	tmp=initmarkers();
 	f=fopen(filename,"r");
 	if (!f)	return	RETNOK;
 	while (!feof(f) && markersnum<10)
 	{
-		fread(&c,sizeof(char),1,f);
+		n=fread(&c,sizeof(char),1,f);
 		if (c>='a' && c<='z') c=c-32;	// make the letters uppercase
-		if (!feof(f) && c!=' ' && c!=9)	// ignore the spaces
+		if (n && !feof(f) && c!=' ' && c!=9)	// ignore the spaces
 		{
 			if (c=='#')	state=3;	// the rest of this line is just a comment
 			if (c<32)	//	newline
@@ -95,7 +96,7 @@ int	writemarkerfile(tMarkers* markers,char* filename)
 	fclose(f);
 	return	RETOK;	
 }
-tInt8 gotomask(tOutput* output,tMarkers* markers,tUInt64* cursorpos,tInt64 baseaddr)
+tInt8 gotomask(tOutput* output,tMarkers* markers,tInt64* cursorpos,tInt64 baseaddr)
 {
 	tUInt64 actcursorpos=*cursorpos+baseaddr;
 	tUInt64 newcursorpos=*cursorpos+baseaddr;

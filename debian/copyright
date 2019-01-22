@@ -3,12 +3,12 @@ Upstream-Name: dhex
 Source: http://www.dettus.net/dhex/
 
 Files: *
-Copyright: 2011 Thomas Dettbarn <dettus@dettus.net>
+Copyright: 2011-2019 Thomas Dettbarn <dettus@dettus.net>
 License: GPL-2+
 
 Files: debian/*
 Copyright: 2012 Jonathan McCrohan <jmccrohan@gmail.com>
-           2011 Gürkan Myczko <gurkan@phys.ethz.ch>
+           2011-2019 Gürkan Myczko <gurkan@phys.ethz.ch>
 License: GPL-2+
 
 License: GPL-2+
