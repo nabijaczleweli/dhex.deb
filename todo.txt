@@ -1,0 +1,6 @@
+- error: when searching, the changes are being ignored
+- feature: correlation
+- feature: snapshot
+- the length of input fields is restricted by the gui
+- return value of dhex itself
+- try compiling it under windows with cl.exe
