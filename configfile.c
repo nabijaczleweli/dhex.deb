@@ -171,16 +171,17 @@ int getcolors(tOutput* output,char* line)
 int readconfigfile(tOutput* output,char* filename)
 {
 	tFptr f=fopen(filename,"rb");
-	unsigned char line[512];
+	char line[512];
 	unsigned char c;
 	int lineidx=0;
 	int	keyboardcnt;
+	int n;
 	if (!f) return 1;
 	keyboardcnt=0;
 	while (!feof(f))
 	{
-		fread(&c,sizeof(char),1,f);
-		if (!feof(f))
+		n=fread(&c,sizeof(char),1,f);
+		if (n && !feof(f))
 		{
 			if (c>='a' && c<='z') c-=32;	// make everything uppercase
 			if (c==9) c=32;			// and whitespaces are all the same

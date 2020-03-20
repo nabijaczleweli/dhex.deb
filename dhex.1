@@ -2,7 +2,7 @@
 .\" groff -man -Tascii dhex.1
 .\"
 .
-.Dd May 12, 2012
+.Dd Jan 19, 2019
 .Os
 .Dt DHEX 1
 .
@@ -14,6 +14,8 @@
 .
 .Sh SYNOPSIS
 .
+.Nm 
+.Op Fl x
 .Nm 
 .Op Fl h
 .Op Fl v
@@ -142,6 +144,8 @@ Usually, .dhexrc is being read from the invoker's home directory. With this para
 for a description of its file format.
 .It Fl g
 Shows the license
+.It Fl x
+Starts the hexcal
 .It Fl h 
 Shows the help screen
 .It Fl k
@@ -256,7 +260,9 @@ Reading from this searchlog means that the search does not cover the whole file:
 .Xr dhex_searchlog 5
 describes the format of the searchlog.
 .Ss HexCal
-Pressing F5 (or its substitute) will open a small 64 bit calculator. This calculator is  capable of not only performing arithmetic operations (+, -, *, /, modulo), but also logic ones. (and, or, xor, shift). There are three columns to enter numbers as hexadecimals, decimals or in binary format. Pressing 'x' will close this screen.
+Pressing F5 (or its substitute) will open a small 64 bit calculator. This calculator is  capable of not only performing arithmetic operations (+, -, *, /, modulo), but also logic ones. (and, or, xor, shift). There are three columns to enter numbers as hexadecimals, decimals or in binary format. Pressing 'x' will close this screen. Using the command line argument
+.Op Fl x
+will start it from the commandline.
 .Ss Correlation
 When 
 .Xr dhex 1

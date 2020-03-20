@@ -3,8 +3,10 @@
 void warte()
 {
         char b[2];
+	void *ptr;
         fprintf(stderr,"...Please press <Enter> to read on...");
-        fgets(b,sizeof(b),stdin);
+       	ptr=fgets(b,sizeof(b),stdin);
+	if (ptr==NULL) fprintf(stderr,"\n");
 }
 
 void print_gpl()
