@@ -1,3 +1,11 @@
+dhex (0.69-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Fix cpu-load patch to enable nodelay() before keyboardsetup() and
+    redisable it after (Closes: #940536) (LP: #1814478)
+
+ -- nabijaczleweli <nabijaczleweli@gmail.com>  Fri, 20 Mar 2020 12:55:23 +0100
+
 dhex (0.69-1) unstable; urgency=medium
 
   * New upstream version.
