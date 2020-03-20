@@ -9,20 +9,20 @@
 void initcolors(tOutput* output)
 {
 
-	output->colors[COLOR_BRACKETS].fg	=COLOR_WHITE;	output->colors[COLOR_BRACKETS].bg	=COLOR_BLACK;	output->colors[COLOR_BRACKETS].attrs	=0;
+	output->colors[COLOR_BRACKETS].fg	=COLOR_BLACK;	output->colors[COLOR_BRACKETS].bg	=COLOR_BLACK;	output->colors[COLOR_BRACKETS].attrs	=A_BOLD;
+	output->colors[COLOR_HEXFIELD].fg	=COLOR_WHITE;	output->colors[COLOR_HEXFIELD].bg	=COLOR_BLACK;	output->colors[COLOR_HEXFIELD].attrs	=0;
 	output->colors[COLOR_INPUT].fg		=COLOR_BLACK;	output->colors[COLOR_INPUT].bg		=COLOR_WHITE;	output->colors[COLOR_INPUT].attrs	=0;
 	output->colors[COLOR_CURSOR].fg		=COLOR_WHITE;	output->colors[COLOR_CURSOR].bg		=COLOR_BLACK;	output->colors[COLOR_CURSOR].attrs	=0;
-	output->colors[COLOR_TEXT].fg		=COLOR_WHITE;	output->colors[COLOR_TEXT].bg		=COLOR_BLACK;	output->colors[COLOR_TEXT].attrs	=A_BOLD;
-	output->colors[COLOR_HEXFIELD].fg	=COLOR_WHITE;	output->colors[COLOR_HEXFIELD].bg	=COLOR_BLACK;	output->colors[COLOR_HEXFIELD].attrs	=0;
+	output->colors[COLOR_TEXT].fg		=COLOR_CYAN;	output->colors[COLOR_TEXT].bg		=COLOR_BLACK;	output->colors[COLOR_TEXT].attrs	=A_BOLD;
+	output->colors[COLOR_MENUNORMAL].fg	=COLOR_BLUE;	output->colors[COLOR_MENUNORMAL].bg	=COLOR_BLACK;	output->colors[COLOR_MENUNORMAL].attrs	=A_BOLD;
+	output->colors[COLOR_MENUACTIVE].fg	=COLOR_BLUE;	output->colors[COLOR_MENUACTIVE].bg	=COLOR_BLUE;	output->colors[COLOR_MENUACTIVE].attrs	=A_BOLD;
+	output->colors[COLOR_MENUHOTKEY].fg	=COLOR_CYAN;	output->colors[COLOR_MENUHOTKEY].bg	=COLOR_BLACK;	output->colors[COLOR_MENUHOTKEY].attrs	=0;
+	output->colors[COLOR_MENUHOTKEYACTIVE].fg=COLOR_CYAN;	output->colors[COLOR_MENUHOTKEYACTIVE].bg=COLOR_BLUE;	output->colors[COLOR_MENUHOTKEYACTIVE].attrs=0;
+	output->colors[COLOR_FRAME].fg		=COLOR_BLUE;	output->colors[COLOR_FRAME].bg		=COLOR_BLACK;	output->colors[COLOR_FRAME].attrs	=0;
 	output->colors[COLOR_DIFF].fg		=COLOR_YELLOW;	output->colors[COLOR_DIFF].bg		=COLOR_BLACK;	output->colors[COLOR_DIFF].attrs	=A_BOLD;
-	output->colors[COLOR_HEADLINE].fg	=COLOR_BLUE;	output->colors[COLOR_HEADLINE].bg	=COLOR_BLACK;	output->colors[COLOR_HEADLINE].attrs	=A_BOLD;
+	output->colors[COLOR_HEADLINE].fg	=COLOR_BLUE;	output->colors[COLOR_HEADLINE].bg	=COLOR_BLACK;	output->colors[COLOR_HEADLINE].attrs	=0;
 //	output->colors[COLOR_INFO].fg		=COLOR_WHITE;	output->colors[COLOR_INFO].bg		=COLOR_BLACK;	output->colors[COLOR_INFO].attrs	=A_BOLD;
 	output->colors[COLOR_HEADER].fg		=COLOR_BLACK;	output->colors[COLOR_HEADER].bg		=COLOR_CYAN;	output->colors[COLOR_HEADER].attrs	=0;
-	output->colors[COLOR_MENUHOTKEY].fg	=COLOR_YELLOW;	output->colors[COLOR_MENUHOTKEY].bg	=COLOR_BLACK;	output->colors[COLOR_MENUHOTKEY].attrs	=A_BOLD;
-	output->colors[COLOR_MENUNORMAL].fg	=COLOR_CYAN;	output->colors[COLOR_MENUNORMAL].bg	=COLOR_BLACK;	output->colors[COLOR_MENUNORMAL].attrs	=A_BOLD;
-	output->colors[COLOR_FRAME].fg		=COLOR_BLUE;	output->colors[COLOR_FRAME].bg		=COLOR_BLACK;	output->colors[COLOR_FRAME].attrs	=A_BOLD;
-	output->colors[COLOR_MENUACTIVE].fg	=COLOR_BLACK;	output->colors[COLOR_MENUACTIVE].bg	=COLOR_CYAN;	output->colors[COLOR_MENUACTIVE].attrs	=0;
-	output->colors[COLOR_MENUHOTKEYACTIVE].fg=COLOR_YELLOW;	output->colors[COLOR_MENUHOTKEYACTIVE].bg=COLOR_CYAN;	output->colors[COLOR_MENUHOTKEYACTIVE].attrs=A_BOLD;	
 }	
 void colorpair(tOutput* output,uicolors uicol,short fg,short bg,int attr)
 {
@@ -91,7 +91,7 @@ void printbuffersingle(tOutput* output,tBuffer* hBuf1,tInt64 cursorpos1,tUInt64 
 
 
 
-	addrwidth=(hBuf1->bufsize>0xffffffffull)?16:8;
+	addrwidth=((hBuf1->bufsize+hBuf1->baseaddr)>0xffffffffull)?16:8;
 	bytesperline=(COLS-(addrwidth+3+3))*8/(8*3+8+1);			// this many bytes can be printed in one line. every 8 bytes there is an extra space in the hex field.
 	
 	setcolor(output,COLOR_HEADLINE);
@@ -107,13 +107,13 @@ void printbuffersingle(tOutput* output,tBuffer* hBuf1,tInt64 cursorpos1,tUInt64 
 	{
 		mvwprintw(output->win,0,1,"[                /                ]");
 		setcolor(output,COLOR_TEXT);
-		mvwprintw(output->win,0,2,"%16llX",cursorpos1);
-		mvwprintw(output->win,0,19,"%16llX",hBuf1->bufsize);
+		mvwprintw(output->win,0,2,"%16llX",cursorpos1+hBuf1->baseaddr);
+		mvwprintw(output->win,0,19,"%16llX",hBuf1->bufsize+hBuf1->baseaddr);
 	} else {
 		mvwprintw(output->win,0,1,"[        /        ]");
 		setcolor(output,COLOR_TEXT);
-		mvwprintw(output->win,0,2,"%8X",(tUInt32)cursorpos1);
-		mvwprintw(output->win,0,11,"%8X",(tUInt32)hBuf1->bufsize);
+		mvwprintw(output->win,0,2,"%8X",(tUInt32)(cursorpos1+hBuf1->baseaddr));
+		mvwprintw(output->win,0,11,"%8X",(tUInt32)(hBuf1->bufsize+hBuf1->baseaddr));
 	}
 	setcolor(output,COLOR_HEADER);
 	mvwprintw(output->win,0,COLS-2-strlen(hBuf1->filename),"%s",hBuf1->filename);
@@ -125,8 +125,8 @@ void printbuffersingle(tOutput* output,tBuffer* hBuf1,tInt64 cursorpos1,tUInt64 
 		{
 			tBool colhex;
 			setcolor(output,COLOR_HEXFIELD);
-			if (addrwidth==8)	mvwprintw(output->win,i+1,0, "% 8X    ",(tUInt32)firstpos1);
-			else			mvwprintw(output->win,i+1,0,"% 16llX    ",firstpos1);
+			if (addrwidth==8)	mvwprintw(output->win,i+1,0, "% 8X    ",(tUInt32)(firstpos1+hBuf1->baseaddr));
+			else			mvwprintw(output->win,i+1,0,"% 16llX    ",firstpos1+hBuf1->baseaddr);
 
 			mvwprintw(output->win,i+1,COLS-bytesperline-5,"      ");
 			wmove(output->win,i+1,addrwidth+3);
@@ -206,7 +206,7 @@ void printbufferdiff(tOutput* output,tBuffer* hBuf1,tBuffer* hBuf2,tInt64 cursor
 	uicolors oldcolor;
 
 
-	addrwidth=(hBuf1->bufsize>0xffffffffull || hBuf2->bufsize>0xffffffffull)?16:8;
+	addrwidth=((hBuf1->bufsize+hBuf1->baseaddr)>0xffffffffull || (hBuf2->bufsize+hBuf2->baseaddr)>0xffffffffull)?16:8;
 	bytesperline=(COLS-(addrwidth+3+3))*8/(8*3+8+1);			// this many bytes can be printed in one line. every 8 bytes there is an extra space in the hex field.
 	
 	setcolor(output,COLOR_HEADLINE);
@@ -230,19 +230,19 @@ void printbufferdiff(tOutput* output,tBuffer* hBuf1,tBuffer* hBuf2,tInt64 cursor
 		mvwprintw(output->win,0,1,"[                /                ]");
 		mvwprintw(output->win,LINES/2,1,"[                /                ]");
 		setcolor(output,COLOR_TEXT);
-		mvwprintw(output->win,0,2,"%16llX",cursorpos1);
-		mvwprintw(output->win,0,19,"%16llX",hBuf1->bufsize);
-		mvwprintw(output->win,LINES/2,2,"%16llX",cursorpos1);
-		mvwprintw(output->win,LINES/2,19,"%16llX",hBuf1->bufsize);
+		mvwprintw(output->win,0,2,"%16llX",cursorpos1+hBuf1->baseaddr);
+		mvwprintw(output->win,0,19,"%16llX",hBuf1->bufsize+hBuf1->baseaddr);
+		mvwprintw(output->win,LINES/2,2,"%16llX",cursorpos2+hBuf2->baseaddr);
+		mvwprintw(output->win,LINES/2,19,"%16llX",hBuf2->bufsize+hBuf2->baseaddr);
 		
 	} else {
 		mvwprintw(output->win,0,1,"[        /        ]");
 		mvwprintw(output->win,LINES/2,1,"[        /        ]");
 		setcolor(output,COLOR_TEXT);
-		mvwprintw(output->win,0,2,"%8X",(tUInt32)cursorpos1);
-		mvwprintw(output->win,0,11,"%8X",(tUInt32)hBuf1->bufsize);
-		mvwprintw(output->win,LINES/2,2,"%8X",(tUInt32)cursorpos2);
-		mvwprintw(output->win,LINES/2,11,"%8X",(tUInt32)hBuf2->bufsize);
+		mvwprintw(output->win,0,2,"%8X",(tUInt32)cursorpos1+hBuf1->baseaddr);
+		mvwprintw(output->win,0,11,"%8X",(tUInt32)hBuf1->bufsize+hBuf1->baseaddr);
+		mvwprintw(output->win,LINES/2,2,"%8X",(tUInt32)cursorpos2+hBuf2->baseaddr);
+		mvwprintw(output->win,LINES/2,11,"%8X",(tUInt32)hBuf2->bufsize+hBuf2->baseaddr);
 	}
 	setcolor(output,COLOR_HEADER);
 	mvwprintw(output->win,0,COLS-2-strlen(hBuf1->filename),"%s",hBuf1->filename);
@@ -270,8 +270,8 @@ void printbufferdiff(tOutput* output,tBuffer* hBuf1,tBuffer* hBuf2,tInt64 cursor
 		for (i=0;i<(LINES+1)/2-2;i++)
 		{
 			setcolor(output,COLOR_HEXFIELD);
-			if (addrwidth==8)	mvwprintw(output->win,i+1,0, "% 8X    ",(tUInt32)cursorpos1);
-			else			mvwprintw(output->win,i+1,0,"% 16llX    ",cursorpos1);
+			if (addrwidth==8)	mvwprintw(output->win,i+1,0, "% 8X    ",(tUInt32)(cursorpos1+hBuf1->baseaddr));
+			else			mvwprintw(output->win,i+1,0,"% 16llX    ",cursorpos1+hBuf1->baseaddr);
 
 			mvwprintw(output->win,i+1,COLS-bytesperline-5,"      ");
 			oldcolor=COLOR_HEXFIELD;
@@ -342,8 +342,8 @@ void printbufferdiff(tOutput* output,tBuffer* hBuf1,tBuffer* hBuf2,tInt64 cursor
 		for (i=0;i<(LINES+1)/2-2;i++)
 		{
 			setcolor(output,COLOR_HEXFIELD);
-			if (addrwidth==8)	mvwprintw(output->win,i+1+LINES/2,0, "% 8X    ",(tUInt32)cursorpos2);
-			else			mvwprintw(output->win,i+1+LINES/2,0,"% 16llX    ",cursorpos2);
+			if (addrwidth==8)	mvwprintw(output->win,i+1+LINES/2,0, "% 8X    ",(tUInt32)(cursorpos2+hBuf2->baseaddr));
+			else			mvwprintw(output->win,i+1+LINES/2,0,"% 16llX    ",cursorpos2+hBuf2->baseaddr);
 
 			mvwprintw(output->win,i+1+LINES/2,COLS-bytesperline-5,"      ");
 			oldcolor=COLOR_HEXFIELD;
