@@ -26,16 +26,22 @@ Bug-Debian: https://bugs.debian.org/<bugnumber>
 Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
 Forwarded: <no|not-needed|url proving that it has been forwarded>
 Reviewed-By: <name and email of someone who approved the patch>
-Last-Update: 2019-01-22
+Last-Update: 2020-03-20
 
 --- dhex-0.69.orig/main.c
 +++ dhex-0.69/main.c
-@@ -530,7 +530,7 @@ int main(int argc,char** argv)
+@@ -530,8 +530,12 @@ int main(int argc,char** argv)
  		output->win=initscr();
  		pairsinit(output);
  		noecho();
 -		nodelay(output->win,1);
-+		/* nodelay(output->win,1); */
- 		if (keyboardsetupreq) keyboardsetup(output,configfile);
+-		if (keyboardsetupreq) keyboardsetup(output,configfile);
++		if (keyboardsetupreq)
++		{
++			nodelay(output->win,1);
++			keyboardsetup(output,configfile);
++			nodelay(output->win,0);
++		}
  		if (bhexcalc)
  		{
+ 			hexcalc(output,hHexCalc);
